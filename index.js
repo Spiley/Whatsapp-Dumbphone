@@ -1,18 +1,26 @@
+require('dotenv').config();
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
-const WACHTWOORD = "kaas"; 
+const WACHTWOORD = process.env.WACHTWOORD; 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'nokia-secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }));
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: "Te veel inlogpogingen. Probeer het over 15 minuten opnieuw."
+});
 
 const checkAuth = (req, res, next) => {
     if (req.session.loggedIn) return next();
@@ -26,7 +34,7 @@ const checkAuth = (req, res, next) => {
     </body></html>`);
 };
 
-app.post('/login', (req, res) => {
+app.post('/login', loginLimiter, (req, res) => {
     if (req.body.pw === WACHTWOORD) {
         req.session.loggedIn = true;
         res.redirect('/');
@@ -115,10 +123,23 @@ app.get('/chat/:id', checkAuth, async (req, res) => {
                 }
             }
 
+            let mediaHtml = '';
+            if (m.hasMedia) {
+                let mediaType = "Media";
+                if (m.type === 'image') mediaType = "Afbeelding";
+                if (m.type === 'sticker') mediaType = "Sticker";
+                if (m.type === 'video') mediaType = "Video";
+                if (m.type === 'audio' || m.type === 'ptt') mediaType = "Spraakbericht";
+                if (m.type === 'document') mediaType = "Document";
+                
+                mediaHtml = `<div style="font-size:11px; color:#555; font-style:italic; margin-bottom: 2px;">[${mediaType}]</div>`;
+            }
+
             html += `<div style="text-align:${align}; margin-bottom:5px;">
                 <div style="background:${bg}; border:1px solid #ccc; padding:4px; display:inline-block; text-align:left; max-width:90%;">
                     ${senderHtml}
-                    <div style="font-size:12px;">${m.body}</div>
+                    ${mediaHtml}
+                    <div style="font-size:12px;">${m.body || ''}</div>
                     <div style="font-size:9px; color:#888; text-align:right; margin-top:3px;">${timeStr}</div>
                 </div>
             </div>`;
