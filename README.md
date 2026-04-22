@@ -37,7 +37,7 @@ Installation & Setup
 
 click start.bat 
 
-### MacOS
+### MacOS/Linux
 
 click start.sh 
 
