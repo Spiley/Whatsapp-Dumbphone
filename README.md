@@ -32,6 +32,7 @@ Configuration
 
 Installation & Setup
 --------------------
+![Demo Video](setup.mp4)
 
 ### Windows
 
