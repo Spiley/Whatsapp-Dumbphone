@@ -65,3 +65,5 @@ Access
 To access the server I would recommend to use a cloudflare tunnel
 
 https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
+
+when this is done, You can access your whatsapp on your own IPadress
