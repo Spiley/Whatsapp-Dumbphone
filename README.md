@@ -23,7 +23,8 @@ Features
 
 Prerequisites
 -------------
-*   A VPS, homeserver, PC, or laptop that can run 24/7   
+*   A VPS, homeserver, PC, or laptop that can run 24/7
+*   Node.js
 
 Configuration
 -------------
@@ -36,7 +37,7 @@ Installation & Setup
 
 click start.bat 
 
-### MacOS
+### MacOS/Linux
 
 click start.sh 
 
