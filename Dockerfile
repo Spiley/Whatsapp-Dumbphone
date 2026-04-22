@@ -1,6 +1,5 @@
 FROM node:18-alpine
 
-# 'git' is hier toegevoegd zodat npm de github package kan pullen
 RUN apk add --no-cache \
     chromium \
     nss \

@@ -7,7 +7,7 @@ const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
-const WACHTWOORD = process.env.WACHTWOORD; 
+const PASSWORD = process.env.PASSWORD; 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -19,7 +19,7 @@ app.use(session({
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
-    message: "Te veel inlogpogingen. Probeer het over 15 minuten opnieuw."
+    message: "Too many login attempts. Please try again later."
 });
 
 const checkAuth = (req, res, next) => {
@@ -29,17 +29,17 @@ const checkAuth = (req, res, next) => {
         <h3>Login</h3>
         <form action="/login" method="post">
             <input type="password" name="pw"><br><br>
-            <input type="submit" value="Inloggen">
+            <input type="submit" value="login">
         </form>
     </body></html>`);
 };
 
 app.post('/login', loginLimiter, (req, res) => {
-    if (req.body.pw === WACHTWOORD) {
+    if (req.body.pw === PASSWORD) {
         req.session.loggedIn = true;
         res.redirect('/');
     } else {
-        res.send("Fout wachtwoord. <a href='/'>Opnieuw</a>");
+        res.send("Invalid password. <a href='/'>Try again</a>");
     }
 });
 
@@ -52,7 +52,7 @@ client.on('qr', qr => {
     qrcode.generate(qr, { small: true });
 });
 
-client.on('ready', () => console.log('WhatsApp Gateway is klaar!'));
+client.on('ready', () => console.log('WhatsApp Gateway is ready!'));
 
 app.get('/', checkAuth, async (req, res) => {
     try {
@@ -76,7 +76,7 @@ app.get('/', checkAuth, async (req, res) => {
         
         html += `</table></body></html>`;
         res.send(html);
-    } catch (e) { res.send("Fout: " + e.message); }
+    } catch (e) { res.send("Wrong: " + e.message); }
 });
 
 app.get('/chat/:id', checkAuth, async (req, res) => {
