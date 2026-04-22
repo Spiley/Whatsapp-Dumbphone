@@ -36,11 +36,10 @@ Before running the application, you must set up your environment variables.
 1.  Clone the repository using: ` git clone https://github.com/Spiley/Whatsapp-Dumbphone `
 2.  Create a .env file in the root directory based on the .env.example template.
 3.  Define the following variables:
-    
-    *   PASSWORD: The password required to log into the web gateway interface.
-        
-    *   SESSION\_SECRET: A secret string used for session encryption.
-        
+` 
+PASSWORD=secretpassword  
+SESSION_SECRET=randomid
+`     
 
 The project is configured to ignore the .env file in version control for security.
 
@@ -51,11 +50,11 @@ Installation & Setup
 
 You can use the provided Python script to build the image and start the container automatically:
 
-`   python run.py   `
+`   python3 run.py   `
 
 ### Manual Setup
 
-Alternatively, you can run the Docker commands manually:
+Alternatively if the QR is not showing up, you can run the Docker commands manually:
 
 1.  docker build --no-cache -t nokia-wa .
 2.  docker run -d --env-file .env -p 3000:3000 nokia-wa
