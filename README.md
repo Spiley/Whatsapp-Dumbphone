@@ -23,7 +23,8 @@ Features
 
 Prerequisites
 -------------
-*   A VPS, homeserver, PC, or laptop that can run 24/7   
+*   A VPS, homeserver, PC, or laptop that can run 24/7
+*   Node.js
 
 Configuration
 -------------
