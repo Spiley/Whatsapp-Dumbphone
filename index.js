@@ -45,7 +45,9 @@ app.post('/login', loginLimiter, (req, res) => {
 
 const client = new Client({
     authStrategy: new LocalAuth(),
-    puppeteer: { args: ['--no-sandbox'], executablePath: '/usr/bin/chromium-browser' }
+    puppeteer: { 
+        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+    }
 });
 
 client.on('qr', qr => {
