@@ -35,10 +35,10 @@ Installation & Setup
 ### setup
 [![Watch the video](https://img.youtube.com/vi/djEMivwf7oo/maxresdefault.jpg)](https://www.youtube.com/watch?v=djEMivwf7oo)
 ### Windows
-run start.bat 
+click on start.bat 
 
 ### MacOS
-run start.sh
+click on start.sh
 
 ### Linux
 ` sudo sh start.sh `
