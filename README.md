@@ -35,13 +35,13 @@ Installation & Setup
 ### setup
 [![Watch the video](https://img.youtube.com/vi/djEMivwf7oo/maxresdefault.jpg)](https://www.youtube.com/watch?v=djEMivwf7oo)
 ### Windows
-
 run start.bat 
 
-### MacOS/Linux
-
+### MacOS
 run start.sh
 
+### Linux
+` sudo sh start.sh `
 
 ### Manual Setup
 
